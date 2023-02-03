@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="mainPane" prefHeight="1080" prefWidth="1920.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+ <top>
+    <MenuBar BorderPane.alignment="CENTER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Close" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+ </top>
+   <center>
+      <SplitPane dividerPositions="0.2292736610418195" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                <ListView fx:id="mainList" onMouseClicked="#handleClickMainList" prefHeight="500.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+               </center>
+               <top>
+                  <ToolBar prefHeight="40.0" prefWidth="270.0" BorderPane.alignment="CENTER" />
+               </top>
+            </BorderPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+                <children>
+
+
+
+                    <BorderPane fx:id="studentDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                       <bottom>
+                          <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                            <items>
+                                <Button mnemonicParsing="false" onAction="#showStudentInsertDialog" text="insert" />
+                                  <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                <Button mnemonicParsing="false" onAction="#handleStudentDelete" text="delete" />
+                            </items>
+                          </ToolBar>
+                       </bottom>
+
+                        <center>
+                            <TableView fx:id="studentTableView">
+                                <columns>
+                                    <TableColumn minWidth="70" text="id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="snum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="sname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="students" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                         <top>
+                             <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <TextField fx:id="studentIdSearchField" onKeyTyped="#handleStudentField" prefWidth="70" promptText="id" />
+                                 <TextField fx:id="studentNameSearchField" onKeyTyped="#handleStudentField" prefWidth="200" promptText="name" />
+                             </ToolBar>
+                         </top>
+
+                    </BorderPane>
+
+                   <BorderPane fx:id="teacherDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                       <bottom>
+                           <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                               <items>
+                                   <Button mnemonicParsing="false" onAction="#showTeacherInsertDialog" text="insert" />
+                                   <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                   <Button mnemonicParsing="false" onAction="#handleTeacherDelete" text="delete" />
+                               </items>
+                           </ToolBar>
+                       </bottom>
+
+                       <center>
+                           <TableView fx:id="teacherTableView">
+                               <columns>
+                                   <TableColumn minWidth="70" text="id">
+                                       <cellValueFactory>
+                                           <PropertyValueFactory property="tnum" />
+                                       </cellValueFactory>
+                                   </TableColumn>
+                                   <TableColumn minWidth="200" text="name">
+                                       <cellValueFactory>
+                                           <PropertyValueFactory property="tname" />
+                                       </cellValueFactory>
+                                   </TableColumn>
+                               </columns>
+                               <items>
+                                   <FXCollections fx:id="teachers" fx:factory="observableArrayList" />
+                               </items>
+                           </TableView>
+                       </center>
+
+                       <top>
+                           <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                               <TextField fx:id="teacherIdSearchField" onKeyTyped="#handleTeacherField" prefWidth="70" promptText="id" />
+                               <TextField fx:id="teacherNameSearchField" onKeyTyped="#handleTeacherField" prefWidth="200" promptText="name" />
+                           </ToolBar>
+                       </top>
+
+                   </BorderPane>
+
+
+                    <BorderPane fx:id="courseDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showCourseInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleCourseDelete" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView fx:id="courseTableView">
+                                <columns>
+                                    <TableColumn minWidth="70" text="id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="300" text="description">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="description" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="courses" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="courseIdSearchField" onKeyTyped="#handleCourseField" prefWidth="70" promptText="id" />
+                                <TextField fx:id="courseNameSearchField" onKeyTyped="#handleCourseField" prefWidth="200" promptText="name" />
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+
+
+                    <BorderPane fx:id="sessionDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showSessionInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleSessionDelete" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView fx:id="sessionTableView">
+                                <columns>
+                                    <TableColumn minWidth="200" text="session name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="sname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="course id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="course name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="teacher id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="tnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="teacher name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="tname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="room name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="rname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="description">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="description" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="start time">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="beginTime" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="sessions" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="sessionNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="session name" />
+                                <TextField fx:id="sessionCourseIdSearchField" onKeyTyped="#handleSessionField" prefWidth="80" promptText="course Id" />
+                                <TextField fx:id="sessionCourseNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="course name" />
+                                <TextField fx:id="sessionTeacherIdSearchField" onKeyTyped="#handleSessionField" prefWidth="80" promptText="teacher Id" />
+                                <TextField fx:id="sessionTeacherNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="teacher name" />
+                                <TextField fx:id="sessionRoomNameSearchField" onKeyTyped="#handleSessionField" prefWidth="200" promptText="room name" />
+                                <TextField fx:id="sessionDescriptionSearchField" onKeyTyped="#handleSessionField" prefWidth="200" promptText="description" />
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+
+                    <BorderPane fx:id="attendanceDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showStudentInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView>
+                                <columns>
+                                    <TableColumn minWidth="70" text="attender id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="attenderNum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="attender name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="attenderName" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="session name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="sname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="course id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="course name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="session start time">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="beginTime" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="attended from">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="attended_From" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="attended to">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="attended_To" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="attendances" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="attendanceAttenderIdSearchField" onKeyTyped="#handleAttendanceField" prefWidth="70" promptText="attender id" />
+                                <TextField fx:id="attendanceAttenderNameSearchField" onKeyTyped="#handleAttendanceField" prefWidth="200" promptText="attender name" />
+                                <TextField fx:id="attendanceSessionNameSearchField" onKeyTyped="#handleAttendanceField" prefWidth="190" promptText="session name" />
+                                <TextField fx:id="attendanceCourseIdSearchField" onKeyTyped="#handleAttendanceField" prefWidth="80" promptText="course id" />
+                                <TextField fx:id="attendanceCourseNameSearchField" onKeyTyped="#handleAttendanceField" prefWidth="200" promptText="course name" />
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+
+
+                    <BorderPane fx:id="courseRegistrationDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showCourseRegistrationInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleCourseRegistrationDelete" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView fx:id="courseRegistrationTableView">
+                                <columns>
+                                    <TableColumn minWidth="70" text="student id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="snum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="student name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="sname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="course id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="course name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="courseRegistrations" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="courseRegistrationStudentIdSearchField" onKeyTyped="#handleCourseRegistrationField" prefWidth="70" promptText="student id" />
+                                <TextField fx:id="courseRegistrationStudentNameSearchField" onKeyTyped="#handleCourseRegistrationField" prefWidth="200" promptText="student name" />
+                                <TextField fx:id="courseRegistrationCourseIdSearchField" onKeyTyped="#handleCourseRegistrationField" prefWidth="70" promptText="course id" />
+                                <TextField fx:id="courseRegistrationCourseNameSearchField" onKeyTyped="#handleCourseRegistrationField" prefWidth="200" promptText="course name" />
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+
+
+                    <BorderPane fx:id="teachersCourseDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showTeachersCourseInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleTeacherCourseDelete" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView fx:id="teachersCourseTableView">
+                                <columns>
+                                    <TableColumn minWidth="70" text="teacher id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="tnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="teacher name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="tname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="course id">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cnum" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="200" text="course name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="cname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="teachersCourses" fx:factory="observableArrayList" />
+                                    <FXCollections fx:id="teachersCourses" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="teachersCourseTeacherIdSearchField" onKeyTyped="#handleTeachersCourseField" prefWidth="70" promptText="teacher id" />
+                                <TextField fx:id="teachersCourseTeacherNameSearchField" onKeyTyped="#handleTeachersCourseField" prefWidth="200" promptText="teacher name" />
+                                <TextField fx:id="teachersCourseCourseIdSearchField" onKeyTyped="#handleTeachersCourseField" prefWidth="70" promptText="course id" />
+                                <TextField fx:id="teachersCourseCourseNameSearchField" onKeyTyped="#handleTeachersCourseField" prefWidth="200" promptText="course name" />
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+                    <BorderPane fx:id="roomDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                        <bottom>
+                            <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                <items>
+                                    <Button mnemonicParsing="false" onAction="#showRoomInsertDialog" text="insert" />
+                                    <ProgressBar prefHeight="18.0" prefWidth="106.0" progress="0.0" />
+                                    <Button mnemonicParsing="false" onAction="#handleRoomDelete" text="delete" />
+                                </items>
+                            </ToolBar>
+                        </bottom>
+
+                        <center>
+                            <TableView fx:id="roomTableView">
+                                <columns>
+                                    <TableColumn minWidth="200" text="room name">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="rname" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn minWidth="70" text="room capacity">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="capacity" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                                <items>
+                                    <FXCollections fx:id="rooms" fx:factory="observableArrayList" />
+                                </items>
+                            </TableView>
+                        </center>
+
+                        <top>
+                            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <TextField fx:id="roomNameSearchField" onKeyTyped="#handleRoomField" prefWidth="200" promptText="room name" />
+                                <TextField fx:id="roomCapacityFromSearchField" onKeyTyped="#handleRoomField" promptText="capacity from"/>
+                                <TextField fx:id="roomCapacityToSearchField" onKeyTyped="#handleRoomField" promptText="capacity to"/>
+                            </ToolBar>
+                        </top>
+
+                    </BorderPane>
+
+               </children>
+            </StackPane>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>

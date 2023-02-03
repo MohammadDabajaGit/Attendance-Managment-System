@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="mainPane" prefHeight="1080" prefWidth="1920.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DoctorController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.2292736610418195" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <items>
+                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                    <center>
+                        <ListView fx:id="mainList" onMouseClicked="#handleClickMainList" prefHeight="500.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+                    </center>
+                    <top>
+                        <ToolBar prefHeight="40.0" prefWidth="270.0" BorderPane.alignment="CENTER" />
+                    </top>
+                </BorderPane>
+                <StackPane prefHeight="150.0" prefWidth="200.0">
+                    <children>
+
+
+
+                        <BorderPane fx:id="sessionDataView" prefHeight="200.0" prefWidth="200.0" visible="false">
+
+                            <bottom>
+                                <ToolBar prefHeight="40.0" prefWidth="381.0" BorderPane.alignment="CENTER">
+                                    <items>
+                                        <Button mnemonicParsing="false" onAction="#showSessionInsertDialog" text="insert" />
+                                    </items>
+                                </ToolBar>
+                            </bottom>
+
+                            <center>
+                                <TableView fx:id="sessionTableView">
+                                    <columns>
+                                        <TableColumn minWidth="200" text="session name">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="sname" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="70" text="course id">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="cnum" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="200" text="course name">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="cname" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="70" text="teacher id">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="tnum" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="200" text="teacher name">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="tname" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="200" text="room name">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="rname" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="200" text="description">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="description" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn minWidth="200" text="start time">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="beginTime" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                    <items>
+                                        <FXCollections fx:id="sessions" fx:factory="observableArrayList" />
+                                    </items>
+                                </TableView>
+                            </center>
+
+                            <top>
+                                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <TextField fx:id="sessionNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="session name" />
+                                    <TextField fx:id="sessionCourseIdSearchField" onKeyTyped="#handleSessionField" prefWidth="80" promptText="course Id" />
+                                    <TextField fx:id="sessionCourseNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="course name" />
+                                    <TextField fx:id="sessionTeacherIdSearchField" onKeyTyped="#handleSessionField" prefWidth="80" promptText="teacher Id" />
+                                    <TextField fx:id="sessionTeacherNameSearchField" onKeyTyped="#handleSessionField" prefWidth="190" promptText="teacher name" />
+                                    <TextField fx:id="sessionRoomNameSearchField" onKeyTyped="#handleSessionField" prefWidth="200" promptText="room name" />
+                                    <TextField fx:id="sessionDescriptionSearchField" onKeyTyped="#handleSessionField" prefWidth="200" promptText="description" />
+                                </ToolBar>
+                            </top>
+
+                        </BorderPane>
+
+                    </children>
+                </StackPane>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>
